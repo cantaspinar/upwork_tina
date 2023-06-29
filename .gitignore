@@ -1,0 +1,5 @@
+__pycache__/
+pdf
+data.csv
+service_account.json
+**/.DS_Store
