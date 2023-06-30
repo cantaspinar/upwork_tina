@@ -18,6 +18,8 @@ To get a local copy up and running follow these simple steps.
 
 3. Edit the configuration file to provide necessary credentials and settings.
 
+4. Share your Google Drive folder with your service account email. (viewer permission is enough)
+
 ## Usage
 
 1. Run the following command:
