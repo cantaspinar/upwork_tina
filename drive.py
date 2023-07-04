@@ -16,9 +16,17 @@ service = build('drive', 'v3', credentials=credentials)
 
 def list_files(folder_id):
     results = service.files().list(q=f"'{folder_id}' in parents and trashed=false",
-                                   fields="nextPageToken, files(id, name)").execute()
+                                   fields="nextPageToken, files(id, name, mimeType)").execute()
     items = results.get('files', [])
-    return items
+    file_list = []
+
+    for item in items:
+        if item['mimeType'] == 'application/vnd.google-apps.folder':
+            file_list.extend(list_files(item['id']))
+        else:
+            file_list.append(item)
+
+    return file_list
 
 
 def download_file(file_id, file_name, download_path):

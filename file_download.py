@@ -13,7 +13,7 @@ def download_files_from_parsed_entries(parsed_entries):
     drive_files = list_files(drive_folder_id)
     file_count = len(drive_files)
 
-    print(f"Found {file_count} files inside the Drive folder.")
+    print(f"Found {file_count} files inside the Drive folder: \n")
 
     docs = []
     for drive_file in drive_files:
@@ -21,13 +21,15 @@ def download_files_from_parsed_entries(parsed_entries):
         file_id = drive_file['id']
         doc = Document(page_content=file_name, metadata={"id": file_id})
         docs.append(doc)
+        print(file_name)
 
+    print()
     print("Embedding file names...")
 
     embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
     db = FAISS.from_documents(docs, embeddings)
 
-    print("Checking for similarities...")
+    print("Checking for similarities... \n")
 
     selected_entries = []
     for entry in parsed_entries:
@@ -38,6 +40,7 @@ def download_files_from_parsed_entries(parsed_entries):
         score = docs_and_scores[0][1]
         file_name = docs_and_scores[0][0].page_content
         file_id = docs_and_scores[0][0].metadata['id']
+        print(f"{query}: {score}")
         if(score < 0.25):
             entry['file_id'] = file_id
             entry['file_name'] = file_name
@@ -45,7 +48,15 @@ def download_files_from_parsed_entries(parsed_entries):
 
     selected_entries_count = len(selected_entries)
 
-    print(f"Found {selected_entries_count} files to download.")
+    print(f"\nFound {selected_entries_count} files to download: \n")
+
+    for entry in selected_entries:
+        print(entry['file_name'])
+    
+    print()
+    
+    if(selected_entries_count == 0):
+        exit(1)
 
     print("Downloading files...")
 
