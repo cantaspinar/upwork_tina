@@ -21,7 +21,7 @@ def download_files_from_parsed_entries(parsed_entries):
         file_id = drive_file['id']
         doc = Document(page_content=file_name, metadata={"id": file_id})
         docs.append(doc)
-        print(file_name)
+        # print(file_name)
 
     print()
     print("Embedding file names...")
@@ -40,8 +40,8 @@ def download_files_from_parsed_entries(parsed_entries):
         score = docs_and_scores[0][1]
         file_name = docs_and_scores[0][0].page_content
         file_id = docs_and_scores[0][0].metadata['id']
-        print(f"{query}: {score}")
         if(score < 0.25):
+            print(f"{file_name}: {score}")
             entry['file_id'] = file_id
             entry['file_name'] = file_name
             selected_entries.append(entry)

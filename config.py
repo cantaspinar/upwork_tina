@@ -3,5 +3,5 @@ openai_api_key = 'YOUR_API_KEY'
 drive_folder_id = 'YOUR_DRIVE_FOLDER_ID'
 bibtex_file = 'bib/sample.bib'
 pdf_download_path = 'pdf'
-model_name = 'gpt-3.5-turbo'
+model_name = 'gpt-3.5-turbo-16k'
 questions = ['What methodologies are used?', 'What is the outcome?']

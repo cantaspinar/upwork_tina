@@ -20,7 +20,7 @@ def ask_question_to_pdf(pdf_path, query):
 
     llm = ChatOpenAI(openai_api_key=openai_api_key,model=model_name)
 
-    qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=db.as_retriever())
+    qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=db.as_retriever(search_kwargs={"k": 3}))
     with get_openai_callback() as cb:
         result = qa.run(query)
         return result
