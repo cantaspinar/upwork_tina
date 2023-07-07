@@ -48,7 +48,7 @@ def download_files_from_parsed_entries(parsed_entries):
 
     selected_entries_count = len(selected_entries)
 
-    print(f"\nFound {selected_entries_count} files to download: \n")
+    print(f"Found {selected_entries_count} files to download: \n")
 
     for entry in selected_entries:
         print(entry['file_name'])
